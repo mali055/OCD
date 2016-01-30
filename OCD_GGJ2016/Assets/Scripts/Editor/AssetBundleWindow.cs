@@ -83,7 +83,7 @@ public class AssetBundleWindow : EditorWindow {
 			case mode.FROM_SCENES:
 				UnityEngine.Object obj;
 				string[] path = new string[1];
-				string error;
+				//string error;
 				List<string> path2 = new List<String>();
 				List<int> index = new List<int>();
 				//Store path names in array because assembly reload clears reference
@@ -100,12 +100,12 @@ public class AssetBundleWindow : EditorWindow {
 				for (int i = 0; i < path2.Count; i++) {
 					obj = sp.GetArrayElementAtIndex(index[i]).objectReferenceValue;
 					path[0] = path2[i];
-					error = BuildPipeline.BuildStreamedSceneAssetBundle( path, PlayerSettings.productName + "_" + obj.name + "_Bundle.unity3d", BuildTarget.WebPlayer);
-					if (error == "") {
-						Debug.LogWarning (" Array Object #" + i + " Asset Bundle built!  \n -- Meshadieme/EditorToolWindows/AssetBundleWindow");
-					} else {
-						Debug.LogWarning (" Array Object #" + i + " Asset Bundle Error : " + error + "!  \n -- Meshadieme/EditorToolWindows/AssetBundleWindow");
-					}
+					//error = BuildPipeline.BuildStreamedSceneAssetBundle( path, PlayerSettings.productName + "_" + obj.name + "_Bundle.unity3d", BuildTarget.WebPlayer);
+					//if (error == "") {
+					//	Debug.LogWarning (" Array Object #" + i + " Asset Bundle built!  \n -- Meshadieme/EditorToolWindows/AssetBundleWindow");
+					//} else {
+					//	Debug.LogWarning (" Array Object #" + i + " Asset Bundle Error : " + error + "!  \n -- Meshadieme/EditorToolWindows/AssetBundleWindow");
+					//}
 				}
 				break;
 		}

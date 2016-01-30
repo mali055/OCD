@@ -93,17 +93,6 @@ namespace Meshadieme {
 //		private var currentLevelData : levelData;
 //		private var currentLevel2Data : level2Data;
 		
-		//Miscellaneous level object references
-//		var particlePrefabs : GameObject[];
-//		var enemyPrefabs : GameObject[];
-//		var enemySpawned : List.<GameObject> = new List.<GameObject>();
-		
-		//Spawning Manager for 3D memory control
-//		var manageSpawn : boolean = false;
-//		var minX : float = 1000;
-//		var minY : float = 1000;
-//		var minZ : float = 1000;
-//		var zOffset : float = -100;
 
 	}
 

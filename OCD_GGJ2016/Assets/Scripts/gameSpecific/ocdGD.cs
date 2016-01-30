@@ -26,7 +26,7 @@ namespace Meshadieme {
 		MAIN = 0,
 	}
 
-	public class slotsGD : gameData {
+	public class ocdGD : gameData {
 
 		//Save Game Variables
 		public bool isMusicOff;
@@ -53,7 +53,7 @@ namespace Meshadieme {
 		public override void resetSave () {
 			Debug.Log ("resetSave");
 			isMusicOff = false;
-			GM.Get().framework.gMode = (int)GameMode.Slots;
+			GM.Get().framework.gMode = GameMode.Home;
             isMusicOff = false;
             highScoreName = new string[] { "Ali", "Martin", "Elio" };
             highScore = new float[] { 501.0f, 500.0f, 499.0f };

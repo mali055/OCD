@@ -32,7 +32,6 @@
 /// Get () 
 /// Awake ()
 /// Start () 
-/// setAtlas () 
 /// moveLocalObj (GameObject, Vector3, Vector3, Vector3) 
 /// moveLocalObj (GameObject, Vector3) 
 /// moveObj (GameObject, Vector3, Vector3, Vector3) 
@@ -71,7 +70,6 @@ namespace Meshadieme
         }
 
         static GM gameManager; //Static GameManager Object (accessible by all)
-        //static bool gamePause = false;
         //static gType gameType = gType.Side2D;
         //static gVersion gameVersion = gVersion.Standard;
 
@@ -88,9 +86,9 @@ namespace Meshadieme
         //Various Manager Scripts
         public sceneManager scene;
         //[HideInInspector]
-        public slotsGF framework;
+        public ocdGF framework;
         //[HideInInspector]
-        public slotsGD data;
+        public ocdGD data;
         //[HideInInspector]
         //public slotsGM menus;
         [HideInInspector]
@@ -103,18 +101,9 @@ namespace Meshadieme
         //	var charMan : characterManager;
         //	var camMan : cameraManager;
         //	
-        //	//Atlas's
-        //UIAtlas[] refAtlas;
-        //UIAtlas[] HDSRAtlas;
-        //UIAtlas[] HDHRAtlas;
-        //UIAtlas[] SDSRAtlas;
-        //UIAtlas[] SDHRAtlas;
 
         //Script Usage Toggles
-        public bool useAtlas = false;
         public bool useStory = false;
-        public bool useHero = false;
-        public bool useChar = false;
         public bool useAI = false;
         public bool useIChains = false;
         public bool useLevelMan = false;
@@ -156,7 +145,7 @@ namespace Meshadieme
             }
             if (scene.debugOn)
             {
-                framework.gMode = (int)GameMode.Slots;
+                framework.gMode = framework.defMode;
             }
             #else
 			//levelMan.levelEditMode = false;
@@ -219,7 +208,7 @@ namespace Meshadieme
             {
                 case Scenes.MAIN:
                     Debug.Log("Menu Init = " + currentScene + framework);
-                    framework.gMode = GameMode.Slots;
+                    framework.gMode = framework.defMode;
                     framework.loadSelectedGame();
                     break;
             }
@@ -286,7 +275,7 @@ namespace Meshadieme
                 //newio = joint as IOManager;
                 if (newfw != null)
                 {
-                    framework = newfw as slotsGF;
+                    framework = newfw as ocdGF;
                 }
                 //else if (newgm != null)
                 //{
@@ -294,7 +283,7 @@ namespace Meshadieme
                 //}
                 else if (newgd != null)
                 {
-                    data = newgd as slotsGD;
+                    data = newgd as ocdGD;
                 }
                 //else if (newio != null)
                 //{
@@ -304,82 +293,7 @@ namespace Meshadieme
             managers = list.ToArray();
             debug = toggles.ToArray();
         }
-
-        /// <summary>
-        /// Set Atlas (Custom) function
-        /// This is called from the Awake function, it will Validate the Atlas's in the arrays and 
-        /// apply a suitable atlas. Below are goals of this function:
-        /// * Determine aspect ratio
-        /// * In HD version if aspect ratio is SD post DebugWarning for (possibility to warn player about version) and vice versa for SD version.
-        /// * In HD version is High DPI and screen size is large then use 1080p otherwise use 720p
-        /// * In SD version is High DPI and screen size is large then use 1536p otherwise use 768p
-        /// * Validate Atlas quantity (ref / SR / HR)
-        /// </summary>
-        //void setAtlas()
-        //{
-        //    int i;
-        //    float aspectRatio = Screen.width / Screen.height;
-        //    if (gameVersion == gVersion.Standard)
-        //    {//Standard Definition
-        //        if (aspectRatio > 1.45)
-        //        {
-        //            DebugLogWarning("We have detected your device is using a Screen more compatible with the HighDefinition version of this Game/App, for a better experience consider installing the appropriate version (Do not show this again) ETC...");
-        //        }
-        //        //A bit higher aspect ratio than 4:3 which is 1.33
-        //        //Used mainly for 4:3 (iPhone3/4/iPad1/2/3) with all Atlas's at 4:3!
-        //        if (refAtlas.Length != SDHRAtlas.Length && refAtlas.Length != SDSRAtlas.Length)
-        //        {
-        //            DebugLogError("Atlas Validation Error! \n Please confirm all the atlas's are in the gameManager Arrays, the quantity does not match.");
-        //        }
-        //        if (Screen.dpi > 215 && Screen.height > 1000)
-        //        {
-        //            //Artwork is 2048x1536 (SDHR)
-        //            DebugLog("GM_Atlas=SDHR");
-        //            for (i = 0; i < refAtlas.Length; i++)
-        //            {
-        //                refAtlas[i].replacement = SDHRAtlas[i];
-        //            }
-        //        }
-        //        else {
-        //            //Artwork is 1024x768 (SDSR)
-        //            DebugLog("GM_Atlas=SDSR");
-        //            for (i = 0; i < refAtlas.Length; i++)
-        //            {
-        //                refAtlas[i].replacement = SDSRAtlas[i];
-        //            }
-        //        }
-        //    }
-        //    else if (gameVersion == gVersion.HighDefinition)
-        //    {// High Definition
-        //        if (aspectRatio < 1.45)
-        //        {
-        //            DebugLogWarning("We have detected your device is using a Screen more compatible with the Standard version of this Game/App, for a better experience consider installing the appropriate version (Do not show this again) ETC...");
-        //        }
-        //        //This aspect ratio range is valid for 3:2, 5:3, 16:9, 16:10 and others in between.
-        //        //Used mainly for 16:9 (1080p/720p) with all Atlas's at 16:9!
-        //        if (refAtlas.Length != HDHRAtlas.Length && refAtlas.Length != HDSRAtlas.Length)
-        //        {
-        //            DebugLogError("Atlas Validation Error! \n Please confirm all the atlas's are in the gameManager Arrays, the quantity does not match.");
-        //        }
-        //        if (Screen.dpi > 215 && Screen.height > 1000)
-        //        {
-        //            //Artwork is 1920x1080 (HDHR)
-        //            DebugLog("GM_Atlas=HDHR");
-        //            for (i = 0; i < refAtlas.Length; i++)
-        //            {
-        //                refAtlas[i].replacement = HDHRAtlas[i];
-        //            }
-        //        }
-        //        else {
-        //            //Artwork is 1280x720 (HDSR)
-        //            DebugLog("GM_Atlas=HDSR");
-        //            for (i = 0; i < refAtlas.Length; i++)
-        //            {
-        //                refAtlas[i].replacement = HDSRAtlas[i];
-        //            }
-        //        }
-        //    }
-        //}
+        
 
         /// <summary>
         /// Move Local Object (Custom, UTILITY) function - Parameters (gObj = Object to move, To = Position to move it, ToOrient = Rotation to apply, ToScale = Scale to apply)
