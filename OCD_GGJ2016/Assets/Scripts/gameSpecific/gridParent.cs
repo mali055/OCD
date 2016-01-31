@@ -20,7 +20,6 @@ public class gridParent : MonoBehaviour {
         {
             if (child.GetComponent<gridChild>())
             {
-                //Debug.Log(child);
                 children.Add(child.GetComponent<gridChild>());
                 Vector2 pos = pointToTile(child.GetComponent<RectTransform>().anchoredPosition);
                 if (pos.x < 0) pos.x = 0;
@@ -53,6 +52,7 @@ public class gridParent : MonoBehaviour {
                         }
                     }
                 }
+                
             }
         }
         printGrid();
@@ -84,7 +84,7 @@ public class gridParent : MonoBehaviour {
     public bool isOccupied(Vector2 pos)
     {
         Debug.Log("Occupied" + pos);
-        return grid[(int)(pos.x + pos.y * GM.Get().framework.map.y)] = true;
+        return grid[(int)(pos.x + (pos.y * GM.Get().framework.map.x))] = true;
     }
 
     public Vector2 pointToTile(Vector2 pos)

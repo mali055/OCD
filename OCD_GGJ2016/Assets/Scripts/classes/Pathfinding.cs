@@ -46,7 +46,7 @@ namespace Meshadieme
 
                 while (current.myGrid != pos)
                 {
-                    Debug.Log(current.myGrid);
+                    Debug.Log(from);
                     scanSurrounding(current, pos);
                     chooseNext();
                 }
@@ -54,7 +54,6 @@ namespace Meshadieme
 
             void chooseNext()
             {
-                //List<Node> tempList = new List<Node>(scanned);
                 int index = 0;
                 float cost = 9999;
                 for (int i = 0; i < scanned.Count; i++)
@@ -72,7 +71,6 @@ namespace Meshadieme
             void scanSurrounding(Node scan, Vector2 target)
             {
                 Vector2 tempGrid = scan.myGrid;
-                Debug.Log(scan.myGrid);
                 processed.Add(scan);
                 tempGrid.x -= 1;
                 tempGrid.y += 1;
